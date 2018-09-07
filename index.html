@@ -12,6 +12,7 @@
 
 <body>
     <h1>Test</h1>
+    <div id="articles"><!-- This is where the article link will wind up --></div>
     <script>
         var API_KEY = "106691143c8e4672824d708f5c6ba050";
         var requestQuery = "Harry Potter";
@@ -29,10 +30,16 @@
             method: 'GET',
         }).done(function (result) {
             console.log(result);
-        }).fail(function (err) {
-            console.log(err);
-            throw err;
-        });
+            console.log(result.response.docs[0].headline.main);
+            console.log(result.response.docs[0].web_url);
+
+            var new_tag = $("<a>");
+            new_tag.attr("href", result.response.docs[0].web_url);
+            new_tag.text(result.response.docs[0].headline.main);
+
+            $("#articles").append(new_tag);
+
+        }).fail(function (err) { console.log(err); throw err; });
     </script>
 </body>
 
