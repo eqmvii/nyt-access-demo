@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <h1>Test</h1>
+    <h1>NYT API Test</h1>
     <div id="articles"><!-- This is where the article link will wind up --></div>
     <script>
         var API_KEY = "106691143c8e4672824d708f5c6ba050";
@@ -32,12 +32,16 @@
             console.log(result);
             console.log(result.response.docs[0].headline.main);
             console.log(result.response.docs[0].web_url);
-
-            var new_tag = $("<a>");
-            new_tag.attr("href", result.response.docs[0].web_url);
-            new_tag.text(result.response.docs[0].headline.main);
-
-            $("#articles").append(new_tag);
+            var ul_tag = $("<ul>");
+            for (var i = 0; i < result.response.docs.length; i++) {
+                var new_li_tag = $("<li>");
+                var new_anchor_tag = $("<a>");
+                new_anchor_tag.attr("href", result.response.docs[i].web_url);
+                new_anchor_tag.text(result.response.docs[i].headline.main);
+                new_li_tag.append(new_anchor_tag);
+                ul_tag.append(new_li_tag);
+            }
+            $("#articles").append(ul_tag);
 
         }).fail(function (err) { console.log(err); throw err; });
     </script>
