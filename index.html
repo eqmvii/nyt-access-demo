@@ -1,12 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NYT API Test</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 </head>
+
 <body>
     <h1>Test</h1>
+    <script>
+        var API_KEY = "106691143c8e4672824d708f5c6ba050";
+        var requestQuery = "Harry Potter";
+        console.log("Searching for " + requestQuery + " using API key " + API_KEY);
+
+        // Taken from the API console example:
+        // https://developer.nytimes.com/article_search_v2.json#/Console/GET/articlesearch.json
+        var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+        url += '?' + $.param({
+            'api-key': API_KEY,
+            'q': requestQuery
+        });
+        $.ajax({
+            url: url,
+            method: 'GET',
+        }).done(function (result) {
+            console.log(result);
+        }).fail(function (err) {
+            console.log(err);
+            throw err;
+        });
+    </script>
 </body>
+
 </html>
